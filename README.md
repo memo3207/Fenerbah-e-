@@ -1,6 +1,26 @@
+# Fenerbahçe - Yapay Zeka Destekli Video Oluşturucu (OpenAI Entegrasyonu)
 
-# Haikus for Codespaces
+Bu repo için OpenAI tabanlı temel entegrasyon iskeleti sağlanmıştır.
 
-This is a quick node project template for demoing Codespaces. It is based on the [Azure node sample](https://github.com/Azure-Samples/nodejs-docs-hello-world). It's great!!!
+Özellikler:
+- Metinden storyboard (GPT) üretimi
+- OpenAI Image API ile sahne görselleri üretimi
+- (Opsiyonel) TTS (OpenAI TTS veya üçüncü parti)
 
-Point your browser to [Quickstart for GitHub Codespaces](https://docs.github.com/en/codespaces/getting-started/quickstart) for a tour of using Codespaces with this repo.
+Kurulum (lokal):
+1. Depoyu klonla ve bağımlılıkları yükle:
+   - npm install
+   - npm i openai dotenv express axios fluent-ffmpeg ffmpeg-static
+2. .env dosyasını oluştur (örnek: .env.example)
+3. `npm start` ile çalıştır
+
+Nasıl kullanılır:
+- POST /api/generate ile JSON gövdesi:
+  {
+    "prompt": "Kısa açıklama veya hikaye metni"
+  }
+- Endpoint, sahne listesini döner ve opsiyonel olarak görsel/TTS üretimini tetikleyebilir.
+
+Notlar:
+- Gerçek üretim için API limitleri, dosya depolama (S3), kuyruklama (Bull/Redis) ve ücret yönetimi eklenmelidir.
+- TTS için OpenAI resmi TTS endpoint'inin kullanılabilirliği değişebilir; gerekirse ElevenLabs veya Google Cloud TTS önerilir.
