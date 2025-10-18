@@ -1,14 +1,20 @@
-let express = require('express');
-let app = express();
-let ejs = require('ejs');
-const haikus = require('./haikus.json');
-const port = process.env.PORT || 3000;
+const express = require("express");
+const path = require("path");
+require("dotenv").config();
 
-app.use(express.static('public'))
-app.set('view engine', 'ejs');
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.render('index', {haikus: haikus});
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+const generateRouter = require("./routes/generate");
+
+app.get("/", (req, res) => res.render("generate"));
+app.use("/api/generate", generateRouter);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
-
-app.listen(port);
